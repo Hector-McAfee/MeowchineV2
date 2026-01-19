@@ -13,3 +13,8 @@
 - Chest verification per player; ED1/2/3 collapsed to **ED**.
 - Daily rankings posted to announcements channel at 12:00 GMT when enabled.
 - First line and full board announcements supported.
+
+---
+
+## User Manual
+A more detailed user manual is available in `USER_MANUAL.md` — it covers installation, admin commands, player workflows, verification behavior, autocomplete, troubleshooting, and tips. Please see `USER_MANUAL.md` for complete documentation.

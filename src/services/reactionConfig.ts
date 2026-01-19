@@ -86,7 +86,8 @@ export async function startBingoCreateSession(client: Client, msg: Message) {
   const s: EventState = {
         ...state,
         active: true,
-        started: true,
+        started: false, // bingo created but not started — admin must run /start_bingo to open submissions
+        verificationOpen: false,
         options: {
           boardSize,
           dailyUpdates: daily,
@@ -129,7 +130,7 @@ export async function startBingoCreateSession(client: Client, msg: Message) {
           `Players can /check_team: **${allowPlayersCheck ? "YES" : "NO"}**\n` +
           `Track first line: **${firstLine ? "ON" : "OFF"}**\n` +
           `Track player stats: **${playerStats ? "ON" : "OFF"}**\n\n` +
-          `Now use **/set_output**, **/set_input**, **/set_announcments**, and configure tiles with **/add_boss**, **/add_drop**.`
+          `Now use **/set_output**, **/set_input**, **/set_announcments**, and configure tiles with **/add_boss**, **/add_drop**. When ready, run **/start_bingo** to begin accepting drop submissions.`
       ).setColor(COLORS.ok);
 
       await prompt.edit({ embeds: [out] }).catch(() => {});

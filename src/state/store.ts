@@ -16,6 +16,7 @@ export async function load(guildId: string): Promise<EventState> {
     return {
       active: false,
       started: false,
+      verificationOpen: false,
       options: {
         boardSize: "3x3",
         dailyUpdates: false,

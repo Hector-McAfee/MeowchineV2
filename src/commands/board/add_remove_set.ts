@@ -61,7 +61,7 @@ export const set_teams_drop = new SlashCommandBuilder()
   .setName("set_teams_drop")
   .setDescription("Manually set a team's verified count for a drop (admin)")
   .addIntegerOption(o =>
-    o.setName("team").setDescription("Team number").setRequired(true)
+    o.setName("team").setDescription("Team number").setRequired(true).setAutocomplete(true)
   )
   .addStringOption(o =>
     o.setName("boss").setDescription("Boss (as shown on the board)").setRequired(true).setAutocomplete(true)

@@ -1,4 +1,5 @@
 import { Client, MessageReaction, User, TextChannel, EmbedBuilder, GuildMember } from "discord.js";
+const dropLocks = new Map<string, boolean>();
 import { load, save } from "../state/store.js";
 import { COLORS } from "../config.js";
 import { embed } from "../util.js";
@@ -14,6 +15,7 @@ export function wireReactionHandler(client: Client) {
 
   const guildId = reaction.message.guild.id;
   const state = await load(guildId);
+  let saved = false;
       const emoji = reaction.emoji.name;
       if (emoji !== "✅" && emoji !== "❌") return;
 
@@ -34,59 +36,81 @@ export function wireReactionHandler(client: Client) {
       if (pending.kind === "drop") {
         const { team, tile, drop, target, delta, snapshot } = pending as any;
 
-        state.progress[team] ??= {};
-        state.progress[team][tile] ??= {};
-        const realCurrent = state.progress[team][tile][drop] ?? 0;
+        // Use an in-process lock per guild/team/tile/drop to serialize updates.
+        const lockKey = `${guildId}:${team}:${tile}:${drop}`;
+        let waited = 0;
+        while (dropLocks.get(lockKey)) {
+          await new Promise((r) => setTimeout(r, 25));
+          waited += 25;
+          if (waited > 2000) break;
+        }
+        dropLocks.set(lockKey, true);
+        try {
+          // Reload the current state and apply the change while holding the lock.
+          const fresh = await load(guildId);
+          // Ensure the pending entry is removed from the fresh state as well
+          delete fresh.pending[reaction.message.id];
 
-        if (emoji === "✅") {
-          const newVal = Math.min(realCurrent + delta, target);
-          state.progress[team][tile][drop] = newVal;
+          fresh.progress[team] ??= {};
+          fresh.progress[team][tile] ??= {};
+          const realCurrent = fresh.progress[team][tile][drop] ?? 0;
 
-          if (pending.teamMessageId && teamCh) {
-            const tm = await teamCh.messages.fetch(pending.teamMessageId).catch(() => null);
-            if (tm) {
-              const e2 = EmbedBuilder.from(base);
-              await tm.edit({ embeds: [e2] }).catch(() => {});
+          if (emoji === "✅") {
+            const newVal = Math.min(realCurrent + delta, target);
+            fresh.progress[team][tile][drop] = newVal;
+
+            if (pending.teamMessageId && teamCh) {
+              const tm = await teamCh.messages.fetch(pending.teamMessageId).catch(() => null);
+              if (tm) {
+                const e2 = EmbedBuilder.from(base);
+                await tm.edit({ embeds: [e2] }).catch(() => {});
+              }
             }
-          }
 
-          if (newVal >= target) {
-            for (const [mid, p] of Object.entries(state.pending)) {
-              if (p.kind === "drop" && p.team === team && (p as any).tile === tile && (p as any).drop === drop) {
-                const m = await outCh.messages.fetch(mid).catch(() => null);
-                if (m) {
-                  const cur = EmbedBuilder.from(m.embeds[0] ?? new EmbedBuilder());
-                  cur.setColor(0x2f3136)
-                    .setDescription(`${(cur.data.description ?? "")}\n**AUTO-CANCELED:** target already met`);
-                  await m.edit({ embeds: [cur] }).catch(() => {});
+            if (newVal >= target) {
+              for (const [mid, p] of Object.entries(fresh.pending)) {
+                if (p.kind === "drop" && (p as any).team === team && (p as any).tile === tile && (p as any).drop === drop) {
+                  const m = await outCh.messages.fetch(mid).catch(() => null);
+                  if (m) {
+                    const cur = EmbedBuilder.from(m.embeds[0] ?? new EmbedBuilder());
+                    cur.setColor(0x2f3136)
+                      .setDescription(`${(cur.data.description ?? "")}\n**AUTO-CANCELED:** target already met`);
+                    await m.edit({ embeds: [cur] }).catch(() => {});
+                  }
+                  if (p.teamMessageId && teamCh) {
+                    const tm = await teamCh.messages.fetch(p.teamMessageId).catch(() => null);
+                    await tm?.edit({ content: "Canceled (target met)" }).catch(() => {});
+                  }
+                  delete fresh.pending[mid];
                 }
-                if (p.teamMessageId && teamCh) {
-                  const tm = await teamCh.messages.fetch(p.teamMessageId).catch(() => null);
-                  await tm?.edit({ content: "Canceled (target met)" }).catch(() => {});
+              }
+            }
+
+            if (fresh.options.trackFirstLine && !fresh.firstLineAwardedTo) {
+              if (checkAnyLineComplete(fresh as any, team)) {
+                fresh.firstLineAwardedTo = team;
+                if (fresh.announcementsChannelId) {
+                  const ann = reaction.message.guild!.channels.cache.get(fresh.announcementsChannelId) as TextChannel;
+                  await ann?.send({ embeds: [embed("First Line Complete! 🟩", `Team **${team}** is first to complete a line!`, COLORS.ok)] });
                 }
-                delete state.pending[mid];
+              }
+            }
+            await onBoardCompleteMaybeAnnounce(reaction.message.guild!, fresh as any, team);
+          } else {
+            if (pending.teamMessageId && teamCh) {
+              const tm = await teamCh.messages.fetch(pending.teamMessageId).catch(() => null);
+              if (tm) {
+                const denyDesc = `**DENIED** — ${drop} (${Math.min(snapshot + delta, target)}/${target}). Contact an admin.`;
+                await tm.edit({ embeds: [embed("Drop Denied ❌", denyDesc, COLORS.err)] }).catch(() => {});
               }
             }
           }
 
-          if (state.options.trackFirstLine && !state.firstLineAwardedTo) {
-            if (checkAnyLineComplete(state as any, team)) {
-              state.firstLineAwardedTo = team;
-              if (state.announcementsChannelId) {
-                const ann = reaction.message.guild!.channels.cache.get(state.announcementsChannelId) as TextChannel;
-                await ann?.send({ embeds: [embed("First Line Complete! 🟩", `Team **${team}** is first to complete a line!`, COLORS.ok)] });
-              }
-            }
-          }
-          await onBoardCompleteMaybeAnnounce(reaction.message.guild!, state as any, team);
-        } else {
-          if (pending.teamMessageId && teamCh) {
-            const tm = await teamCh.messages.fetch(pending.teamMessageId).catch(() => null);
-            if (tm) {
-              const denyDesc = `**DENIED** — ${drop} (${Math.min(snapshot + delta, target)}/${target}). Contact an admin.`;
-              await tm.edit({ embeds: [embed("Drop Denied ❌", denyDesc, COLORS.err)] }).catch(() => {});
-            }
-          }
+          // Save the fresh state which includes our updated progress and any pending deletions
+          await save(guildId, fresh);
+          saved = true;
+        } finally {
+          dropLocks.delete(lockKey);
         }
       } else {
         const { userId, boss, team } = pending as any;
@@ -107,7 +131,7 @@ export function wireReactionHandler(client: Client) {
         }
       }
 
-  await save(guildId, state);
+  if (!saved) await save(guildId, state);
     } catch (e) {
       console.error(e);
     }

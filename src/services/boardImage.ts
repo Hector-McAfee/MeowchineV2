@@ -199,7 +199,10 @@ export async function renderBoardImage(state: EventState, team: string): Promise
       ctx.fillStyle = "#e5e7eb";
       ctx.font = FONT_REGULAR + " 14px";
   ctx.textAlign = "center";
-  lines.slice(0,3).forEach((t, i) => ctx.fillText(t, x + TILE/2, y + TILE - stripH + 8 + i*18));
+  lines.slice(0,3).forEach((t, i) => {
+    const displayText = i === 0 && cfg.mode === "OR" ? t + " OR" : t;
+    ctx.fillText(displayText, x + TILE/2, y + TILE - stripH + 8 + i*18);
+  });
   if (lines.length > 3) ctx.fillText(`+${lines.length-3} more...`, x + TILE/2, y + TILE - 22);
   ctx.textAlign = "left";
 

@@ -14,6 +14,7 @@ export const data = new SlashCommandBuilder()
 export async function execute(i: ChatInputCommandInteraction) {
   const s = await load(i.guildId!);
   if (!s.active) return i.reply({ embeds: [embed("No Active Bingo")], ephemeral: true });
+  if (!s.started) return i.reply({ embeds: [embed("Bingo Hasn't Started", "Admins must run `/start_bingo` to begin accepting drop submissions.")], ephemeral: true });
 
   const team = s.channelToTeam[i.channelId];
   if (!team) return i.reply({ embeds: [embed("Wrong Channel","Run this in your team input channel.")], ephemeral: true });

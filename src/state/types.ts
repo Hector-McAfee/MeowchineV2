@@ -68,6 +68,7 @@ export interface EventState {
   channels: any;
   active: boolean;
   started: boolean;
+  verificationOpen?: boolean;
   options: BingoOptions;
   outputChannelId?: string;
   announcementsChannelId?: string;

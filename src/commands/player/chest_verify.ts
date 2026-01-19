@@ -30,15 +30,10 @@ export async function execute(i: ChatInputCommandInteraction) {
     return i.reply({ embeds: [embed("No Active Bingo")], ephemeral: true });
   }
   if (!s.options.chestVerify) {
-    return i.reply({
-      embeds: [
-        embed(
-          "Chest Verify Disabled",
-          "Admins disabled chest verification for this bingo."
-        ),
-      ],
-      ephemeral: true,
-    });
+    return i.reply({ embeds: [embed("Chest Verify Disabled", "Admins disabled chest verification for this bingo.")], ephemeral: true });
+  }
+  if (!s.started && !s.verificationOpen) {
+    return i.reply({ embeds: [embed("Chest Verification Not Open", "Admins can run `/open_verification` to allow chest verification before bingo starts.")], ephemeral: true });
   }
 
   const team = s.channelToTeam[i.channelId];
