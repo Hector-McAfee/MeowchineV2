@@ -25,6 +25,7 @@ export const REACTIONS = {
   size3: "3️⃣",
   size4: "4️⃣",
   size5: "5️⃣",
+  size6: "6️⃣",
   toggleDaily: "📅",
   toggleChest: "🔐",
   toggleCheckTeams: "👀",
@@ -33,15 +34,16 @@ export const REACTIONS = {
   confirm: "✅"
 } as const;
 
-export type BoardSize = "3x3" | "4x4" | "5x5";
+export type BoardSize = "3x3" | "4x4" | "5x5" | "6x6";
 
 export const BOARD_SIZES: Record<string, BoardSize> = {
   [REACTIONS.size3]: "3x3",
   [REACTIONS.size4]: "4x4",
   [REACTIONS.size5]: "5x5",
+  [REACTIONS.size6]: "6x6",
 };
 
-export const MAX_TILES: Record<BoardSize, number> = { "3x3": 9, "4x4": 16, "5x5": 25 };
+export const MAX_TILES: Record<BoardSize, number> = { "3x3": 9, "4x4": 16, "5x5": 25, "6x6": 36 };
 
 export const COLORS = {
   info: 0x5865F2,

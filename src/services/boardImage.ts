@@ -83,7 +83,11 @@ registerFont(path.join(FONT_DIR, "NotoSans-Bold.ttf"), "NotoSans-Bold");
 
 
 function maxTiles(size: string) {
-  if (size === "3x3") return 9; if (size === "4x4") return 16; if (size === "5x5") return 25; return 9;
+  if (size === "3x3") return 9;
+  if (size === "4x4") return 16;
+  if (size === "5x5") return 25;
+  if (size === "6x6") return 36;
+  return 9;
 }
 
 export function tileComplete(state: EventState, team: string, idx: number): boolean {
@@ -114,7 +118,9 @@ export async function renderBoardImage(state: EventState, team: string): Promise
   const side = parseInt(state.options.boardSize[0]);
   const cap = maxTiles(state.options.boardSize);
 
-  const TILE = 220, GAP = 10, PAD = 16;
+  const TILE = side >= 6 ? 170 : 220;
+  const GAP = side >= 6 ? 8 : 10;
+  const PAD = 16;
   const width = PAD*2 + side*TILE + (side-1)*GAP;
   const height = PAD*2 + side*TILE + (side-1)*GAP;
 

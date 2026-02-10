@@ -30,7 +30,7 @@ export async function startBingoCreateSession(client: Client, msg: Message) {
   const em = embed(
     "Bingo Setup",
     "React to configure:\n" +
-      `${REACTIONS.size3} = 3x3  |  ${REACTIONS.size4} = 4x4  |  ${REACTIONS.size5} = 5x5\n` +
+      `${REACTIONS.size3} = 3x3  |  ${REACTIONS.size4} = 4x4  |  ${REACTIONS.size5} = 5x5  |  ${REACTIONS.size6} = 6x6\n` +
       `${REACTIONS.toggleDaily} = Toggle Daily Rankings (12:00 GMT)\n` +
       `${REACTIONS.toggleChest} = Toggle Chest Verification\n` +
       `${REACTIONS.toggleCheckTeams} = Toggle /check_team for all players\n` +
@@ -60,7 +60,7 @@ export async function startBingoCreateSession(client: Client, msg: Message) {
     // Size selection
     if (Object.prototype.hasOwnProperty.call(BOARD_SIZES, emoji)) {
       // Remove user's other size reactions (keep single choice)
-      for (const key of [REACTIONS.size3, REACTIONS.size4, REACTIONS.size5]) {
+      for (const key of [REACTIONS.size3, REACTIONS.size4, REACTIONS.size5, REACTIONS.size6]) {
         if (key !== emoji) {
           const other = prompt.reactions.resolve(key as string);
           if (other) {

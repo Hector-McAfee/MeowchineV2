@@ -3,7 +3,7 @@ import type { EventState } from "../state/types.js";
 import { COLORS } from "../config.js";
 import { embed } from "../util.js";
 
-function maxTiles(size: string) { return size === "3x3" ? 9 : size === "4x4" ? 16 : 25; }
+function maxTiles(size: string) { return size === "3x3" ? 9 : size === "4x4" ? 16 : size === "5x5" ? 25 : 36; }
 
 function tileComplete(state: EventState, team: string, idx: number): boolean {
   const cfg = state.tiles[idx]; if (!cfg) return false;
