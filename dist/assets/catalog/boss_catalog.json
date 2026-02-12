@@ -1,0 +1,444 @@
+{
+    "Vorago": [
+        "Tectonic Energy",
+        "Seismic wand",
+        "Seismic singularity",
+        "Weapon - any"
+    ],
+    "Solak": [
+        "Torn grimoire page",
+        "Cluster",
+        "Cinderbane gloves",
+        "Merethiel's stave",
+        "Ancient elven ritual shard",
+        "Erethdor's grimoire",
+        "Blightbound crossbow",
+        "Crossbow - any",
+        "Unique - any"
+    ],
+    "The Barrows: Rise of the Six": [
+        "Malevolent energy",
+        "Malevolent kiteshield",
+        "Merciless kiteshield",
+        "Vengeful kiteshield",
+        "Shield - any"
+    ],
+    "Araxxi": [
+        "Full spider leg",
+        "Weapon part - any",
+        "Spider leg piece - any",
+        "Spider leg top",
+        "Spider leg middle",
+        "Spider leg bottom",
+        "Araxxi's fang",
+        "Araxxi's web",
+        "Araxxi's eye"
+    ],
+    "Kalphite King": [
+        "Weapon - any",
+        "Mainhand - any",
+        "Offhand - any",
+        "Drygore rapier",
+        "Off-hand drygore rapier",
+        "Drygore longsword",
+        "Off-hand drygore longsword",
+        "Drygore mace",
+        "Off-hand drygore mace"
+    ],
+    "Queen Black Dragon": [
+        "Crossbow piece - any",
+        "Royal torsion spring",
+        "Royal sight",
+        "Royal frame",
+        "Royal bolt stabiliser"
+    ],
+    "Corporeal Beast": [
+        "Spectral sigil",
+        "Arcane sigil",
+        "Elysian sigil",
+        "Divine sigil",
+        "Sigil - any",
+        "Holy elixir",
+        "Spirit shield"
+    ],
+    "The Magister": [
+        "Phylactery",
+        "Key to the Crossing",
+        "Gloves of passage"
+    ],
+    "Raksha": [
+        "Fleeting boots",
+        "Shadow spike",
+        "Greater Ricochet ability codex",
+        "Greater Chain ability codex",
+        "Divert ability codex",
+        "Codex - any",
+        "Unique - any"
+    ],
+    "Zemouregal and Vorkath": [
+        "Vorkath's spike",
+        "Vorkath's scale",
+        "Invoke Lord of Bones incantation codex",
+        "Unique - any"
+    ],
+    "Amascut the Devourer": [
+        "Devourer's Guard",
+        "The Devourer's Nexus",
+        "Tumeken's Light",
+        "Mask of Tumeken's resplendence",
+        "Robe top of Tumeken's resplendence",
+        "Robe bottom of Tumeken's resplendence",
+        "Gloves of Tumeken's resplendence",
+        "Boots of Tumeken's resplendence",
+        "Shard of Genesis Essence",
+        "Armour piece - any",
+        "Weapon - any",
+        "Unique - any"
+    ],
+    "Nex Angel of Death": [
+        "Wand of the praesul",
+        "Imperium core",
+        "Praesul codex",
+        "Intricate smoke-shrouded chest",
+        "Intricate shadow chest",
+        "Intricate blood stained chest",
+        "Intricate ice chest",
+        "Chest - any",
+        "Unique - any"
+    ],
+    "Nex": [
+        "Torva full helm",
+        "Torva platebody",
+        "Torva platelegs",
+        "Torva boots",
+        "Torva gloves",
+        "Pernix cowl",
+        "Pernix body",
+        "Pernix chaps",
+        "Pernix boots",
+        "Pernix gloves",
+        "Virtus mask",
+        "Virtus robe top",
+        "Virtus robe legs",
+        "Virtus boots",
+        "Virtus gloves",
+        "Virtus wand",
+        "Virtus book",
+        "Zaryte bow",
+        "Torva Armour piece",
+        "Pernix Armour piece",
+        "Virtus Armour piece",
+        "Weapon - any",
+        "Armour piece - any",
+        "Unique - any"
+    ],
+    "K'ril Tsutsaroth": [
+        "Hood of subjugation",
+        "Garb of subjugation",
+        "Gown of subjugation",
+        "Gloves of subjugation",
+        "Boots of subjugation",
+        "Ward of subjugation",
+        "Zamorakian spear",
+        "Steam battlestaff",
+        "Armour piece - any",
+        "Unique - any"
+    ],
+    "General Graardor": [
+        "Bandos helmet",
+        "Bandos chestplate",
+        "Bandos tassets",
+        "Bandos gloves",
+        "Bandos boots",
+        "Bandos warshield",
+        "Bandos hilt",
+        "Armour Piece - any",
+        "Unique - any"
+    ],
+    "Commander Zilyana": [
+        "Saradomin sword",
+        "Armadyl crossbow",
+        "Off-hand Armadyl crossbow",
+        "Saradomin's murmur",
+        "Saradomin's hiss",
+        "Saradomin's whisper",
+        "Saradomin hilt",
+        "Crossbow - any",
+        "Unique - any"
+    ],
+    "Kree'arra": [
+        "Armadyl helmet",
+        "Armadyl chestplate",
+        "Armadyl chainskirt",
+        "Armadyl gloves",
+        "Armadyl boots",
+        "Armadyl buckler",
+        "Armadyl hilt",
+        "Armour Piece - any",
+        "Unique - any"
+    ],
+    "GW1": [
+        "Armour piece - any",
+        "Weapon - any",
+        "Godsword shard - any",
+        "Godsword shard 1",
+        "Godsword shard 2",
+        "Godsword shard 3",
+        "Unique - any"
+    ],
+    "Telos, the Warden": [
+        "Orb of pure anima",
+        "Orb of volcanic anima",
+        "Orb of corrupted anima",
+        "Dormant Zaros godsword",
+        "Dormant staff of Sliske",
+        "Dormant Seren godbow",
+        "Reprisal codex",
+        "Orb - any",
+        "Dormant - any",
+        "Unique - any"
+    ],
+    "GW2": [
+        "Dormant anima core helm",
+        "Dormant anima core legs",
+        "Dormant anima core body",
+        "Dormant anima core - any",
+        "Weapon - any",
+        "Essence - any",
+        "Crest - any",
+        "Unique - any"
+    ],
+    "Gregorovic": [
+        "Crest of Sliske",
+        "Shadow glaive",
+        "Off-hand shadow glaive",
+        "Sliskean essence",
+        "Dormant anima core helm",
+        "Dormant anima core body",
+        "Dormant anima core legs",
+        "Anima core - any",
+        "Weapon - any",
+        "Unique - any"
+    ],
+    "Twin Furies": [
+        "Crest of Zamorak",
+        "Blade of Nymora",
+        "Blade of Avaryss",
+        "Zamorakian essence",
+        "Dormant anima core helm",
+        "Dormant anima core body",
+        "Dormant anima core legs",
+        "Anima core - any",
+        "Weapon - any",
+        "Unique - any"
+    ],
+    "Vindicta": [
+        "Crest of Zaros",
+        "Dragon Rider lance",
+        "Zarosian essence",
+        "Dormant anima core helm",
+        "Dormant anima core body",
+        "Dormant anima core legs",
+        "Anima core - any",
+        "Weapon - any",
+        "Unique - any"
+    ],
+    "Helwyr": [
+        "Crest of Seren",
+        "Wand of the Cywir elders",
+        "Orb of the Cywir elders",
+        "Serenic essence",
+        "Dormant anima core helm",
+        "Dormant anima core body",
+        "Dormant anima core legs",
+        "Anima core - any",
+        "Weapon - any",
+        "Unique - any"
+    ],
+    "Kerapac": [
+        "Scripture of Jas",
+        "Greater Concentrated blast ability codex",
+        "Kerapac's wrist wraps",
+        "Fractured Armadyl symbol",
+        "Staff of Armadyl's fractured shaft",
+        "Fractured stabilisation gem",
+        "Manuscript of Jas",
+        "Staff piece - any",
+        "Unique - any"
+    ],
+    "Arch-Glacor": [
+        "Scripture of Wen",
+        "Leng artefact",
+        "Dark nilas",
+        "Frozen core of Leng",
+        "Manuscript of Wen",
+        "Unique - any"
+    ],
+    "Croesus": [
+        "Scripture of Bik",
+        "Cryptbloom helm",
+        "Cryptbloom top",
+        "Cryptbloom bottoms",
+        "Cryptbloom gloves",
+        "Cryptbloom boots",
+        "Croesus sporehammer",
+        "Croesus foultorch",
+        "Croesus spore",
+        "Manuscript of Bik",
+        "Armour piece - any",
+        "Skilling offhand - any",
+        "Unique - any"
+    ],
+    "TzKal-Zuk": [
+        "Scripture of Ful",
+        "Magma Tempest ability codex",
+        "Obsidian blade",
+        "Ancient hilt",
+        "Magma core",
+        "Igneous stone",
+        "Manuscript of Ful",
+        "Weapon piece - any",
+        "Unique - any"
+    ],
+    "ED1": [
+        "Fishy treat",
+        "Masuta's warspear",
+        "Ancient scale (cumulative)",
+        "Ancient scale (single drop)"
+    ],
+    "ED2": [
+        "Greater Flurry Codex",
+        "Greater Fury Codex",
+        "Greater Barge Codex",
+        "Codex - any"
+    ],
+    "ED3": [
+        "Eldritch crossbow stock",
+        "Eldritch crossbow limb",
+        "Eldritch crossbow mechanism",
+        "Crossbow piece - any"
+    ],
+    "Zamorak": [
+        "Top of the Last Guardian's bow",
+        "Bottom of the Last Guardian's bow",
+        "Divine bowstring",
+        "Vestments of havoc hood",
+        "Vestments of havoc robe top",
+        "Vestments of havoc robe bottom",
+        "Vestments of havoc boots",
+        "Codex of lost knowledge",
+        "Chaos Roar ability codex",
+        "Bow piece - any",
+        "Armour piece - any",
+        "Codex - any",
+        "Unique - any"
+    ],
+    "Hermod": [
+        "Hermodic plate"
+    ],
+    "Rasial": [
+        "Omni guard",
+        "Soulbound lantern",
+        "Crown of the First Necromancer",
+        "Robe top of the First Necromancer",
+        "Robe bottom of the First Necromancer",
+        "Hand wrap of the First Necromancer",
+        "Foot wraps of the First Necromancer",
+        "Weapon - any",
+        "Armour piece - any",
+        "Unique - any"
+    ],
+    "Sanctum of Rebirth": [
+        "Roar of Awakening",
+        "Ode to Deceit",
+        "Shard of Genesis Essence",
+        "Scripture of Amascut",
+        "Divine Rage prayer codex",
+        "Manuscript of Amascut",
+        "Weapon - any",
+        "Unique - any"
+    ],
+    "Gate of Elidinis": [
+        "Runic attuner",
+        "Memory dowser",
+        "Latent Offering",
+        "Eclipsed Soul prayer codex",
+        "Scripture of Elidinis",
+        "Unique - any"
+    ],
+    "Legiones": [
+        "Signet - any"
+    ],
+    "Rex Matriarchs": [
+        "Heart of the Archer",
+        "Heart of the Seer",
+        "Heart of the Berserker",
+        "Heart of the Warrior",
+        "Occultist's ring",
+        "Jail cell key",
+        "Savage spear tip",
+        "Savage spear shaft",
+        "Savage spear cap",
+        "Savage plume",
+        "Heart - any",
+        "Spear piece - any",
+        "Unique - any"
+    ],
+    "Dagannoth Kings": [
+        "Archers' ring",
+        "Seers' ring",
+        "Warrior ring",
+        "Berserker ring",
+        "Seercull",
+        "Ring - any"
+    ],
+    "Kalphite Queen": [
+        "Kalphite queen head"
+    ],
+    "Chaos Elemental": [
+        "Weapon - any",
+        "Armour piece - any",
+        "Non-corrupt weapon - any",
+        "Non-corrupt armour piece - any",
+        "Corrupt weapon - any",
+        "Corrupt armour piece - any"
+    ],
+    "King Black Dragon": [
+        "Dragon Rider boots",
+        "Dragon Rider gloves",
+        "King black dragon head"
+    ],
+    "Giant mole": [
+        "Clingy mole"
+    ],
+    "Barrows brothers": [
+        "Set - any",
+        "Weapon - any",
+        "Armour piece - any",
+        "Akrisae armour piece - any",
+        "Verac armour piece - any",
+        "Dharok armour piece - any",
+        "Ahrim armour piece - any",
+        "Linza armour piece - any",
+        "Torag armour piece - any",
+        "Karil armour piece - any",
+        "Guthans armour piece - any",
+        "Akrisae weapon - any",
+        "Verac weapon - any",
+        "Dharok weapon - any",
+        "Ahrim weapon - any",
+        "Linza weapon - any",
+        "Torag weapon - any",
+        "Karil weapon - any",
+        "Guthans weapon - any",
+        "Akrisae set",
+        "Verac set",
+        "Dharok set",
+        "Ahrim set",
+        "Linza set",
+        "Torag set",
+        "Karil set",
+        "Guthans set",
+        "Unique - any"
+    ]
+}

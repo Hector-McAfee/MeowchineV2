@@ -19,6 +19,10 @@ function norm(s: string): string {
   return (s ?? "").toLowerCase().trim();
 }
 
+function normalizedBossKey(label: string): string {
+  return norm(canonBossName(label));
+}
+
 /** Canonicalize a boss name (alias-aware). Optionally collapse ED1/2/3 -> ED for chest flows. */
 export function canonBossName(raw: string, opts: { forChest?: boolean } = {}): string {
   const cleaned = (raw ?? "").replace(/’/g, "'").trim();
@@ -102,16 +106,18 @@ export async function suggestAllCatalogBosses(i: AutocompleteInteraction, catalo
   const s = await load(i.guildId!);
   const q = i.options.getFocused(true)?.value?.toString() ?? "";
 
-  // Build a normalized set of bosses already on the board so we can exclude them
+  // Build a normalized set of bosses already on the board so we can exclude them.
+  // Use regular boss canonicalization (not chest canonicalization), so ED1/ED2/ED3
+  // remain distinct for board setup.
   const present = new Set<string>();
   for (const t of Object.values(s.tiles || {})) {
     const tb = (t as any)?.boss;
     if (!tb) continue;
-    present.add(normalizedForChest(tb));
+    present.add(normalizedBossKey(tb));
   }
 
   const all = Object.keys(catalog || {})
-    .filter((k) => !present.has(normalizedForChest(k)))
+    .filter((k) => !present.has(normalizedBossKey(k)))
     .sort((a, b) => a.localeCompare(b));
 
   return toChoices(all, q);

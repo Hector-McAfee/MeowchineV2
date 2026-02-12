@@ -2,6 +2,7 @@ import { ChatInputCommandInteraction, SlashCommandBuilder, Attachment, EmbedBuil
 import { AMOUNTABLE_DROPS, COLORS } from "../../config.js";
 import { embed, normalize } from "../../util.js";
 import { load, save } from "../../state/store.js";
+import { computeChestRemainingForUser } from "../../autocomplete/data.js";
 
 export const data = new SlashCommandBuilder()
   .setName("submit_drop")
@@ -20,16 +21,7 @@ export async function execute(i: ChatInputCommandInteraction) {
   if (!team) return i.reply({ embeds: [embed("Wrong Channel","Run this in your team input channel.")], ephemeral: true });
 
   if (s.options.chestVerify) {
-    const required = new Set<string>();
-    for (const t of Object.values(s.tiles)) {
-      if (!t?.boss) continue;
-      const b = t.boss.toLowerCase();
-      if (["zemouregal and vorkath","amascut the devourer","arch-glacor","tzkal-zuk","ed","zamorak","sanctum of rebirth","gate of elidinis"].includes(b)) {
-        required.add(t.boss);
-      }
-    }
-    const done = new Set(s.chestVerifiedUsers[i.user.id] ?? []);
-    const missing = [...required].filter(x => !done.has(x));
+    const missing = await computeChestRemainingForUser(i.guildId!, i.user.id);
     if (missing.length > 0) {
       return i.reply({ embeds: [embed("Chest Verification Required",
         "You must verify these before submitting drops:\n" + missing.map(m => `• ${m}`).join("\n")
