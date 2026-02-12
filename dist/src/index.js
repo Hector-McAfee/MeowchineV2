@@ -38,7 +38,8 @@ client.on(Events.GuildCreate, async (guild) => {
 client.on("interactionCreate", async (interaction) => {
     try {
         if (interaction.isAutocomplete()) {
-            return handleAutocomplete(interaction);
+            await handleAutocomplete(interaction);
+            return;
         }
         if (interaction.isChatInputCommand()) {
             // your command dispatcher
