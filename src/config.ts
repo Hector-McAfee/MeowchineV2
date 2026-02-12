@@ -7,7 +7,7 @@ export const AMOUNTABLE_DROPS = new Set([
   "vorkath's spike",
   "ancient scale (cumulative)"
 ]);
-
+//test
 // Chest-verify bosses (ED1/2/3 collapsed to "ED")
 export const CHEST_VERIFY_BOSSES = [
   "Zemouregal and Vorkath",
