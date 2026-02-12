@@ -1,4 +1,4 @@
-export const DATA_DIR = "./data";
+export const DATA_DIR = process.env.DATA_DIR?.trim() || "./data";
 export const CONFIG_DIR = "./config";
 export const ASSETS_DIR = "./assets";
 export const ICONS_DIR = `${ASSETS_DIR}/icons`;

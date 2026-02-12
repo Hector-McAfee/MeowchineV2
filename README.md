@@ -6,6 +6,11 @@
 3) Add boss icons (PNG) to `assets/icons/` — name them after the boss (lowercase, spaces to `_`). Example: `arch-glacor.png`
 4) Dev: `npm run dev` • Build: `npm run build` • Prod: `npm start`
 
+### Persistent data directory
+- The bot stores state files under `DATA_DIR` (default: `./data`).
+- For Railway with a volume, set `DATA_DIR` to your mounted volume path (commonly `/data`).
+- If `DATA_DIR` points outside the mounted volume, data will reset on each deploy/restart.
+
 ## Notes
 - Only `/bingo_create` is visible until a bingo is created (per‑guild commands).
 - Board/grid is rendered with **node-canvas** using boss icons.

@@ -5,7 +5,8 @@
 - Prerequisites: Node.js (16+), a Discord bot token and a server where you have Manage Guild permissions.
 - Install: `npm install`
 - Run in dev: `npm run dev` (or `npm start` to run directly).  Use `/start_bingo` to begin accepting drop submissions and `/end_bingo` to finish a bingo.
-- Bot state files store per-guild data in `data/<guildId>.json` and configuration presets live in `assets/`.
+- Bot state files store per-guild data in `DATA_DIR/<guildId>.json` (`DATA_DIR` defaults to `./data`) and configuration presets live in `assets/`.
+- For Railway, mount a volume and set `DATA_DIR` to that mount path (for example `/data`) so deployments do not reset state.
 
 ---
 
