@@ -8,7 +8,7 @@ export const data = new SlashCommandBuilder()
     .setDescription("Submit a drop for verification")
     .addStringOption(o => o.setName("boss").setDescription("Boss").setRequired(true))
     .addStringOption(o => o.setName("drop").setDescription("Drop").setRequired(true))
-    .addIntegerOption(o => o.setName("amount").setDescription("Amount (Vorkath's spike / Ancient scale only)").setRequired(false))
+    .addIntegerOption(o => o.setName("amount").setDescription("Amount (amountable drops only)").setRequired(false))
     .addAttachmentOption(o => o.setName("image").setDescription("Proof image").setRequired(true));
 export async function execute(i) {
     const s = await load(i.guildId);
@@ -28,7 +28,10 @@ export async function execute(i) {
     const boss = i.options.getString("boss", true);
     const drop = i.options.getString("drop", true);
     const image = i.options.getAttachment("image", true);
-    const amount = i.options.getInteger("amount") ?? 1;
+    const amountInput = i.options.getInteger("amount");
+    if (amountInput != null && amountInput < 0) {
+        return i.reply({ embeds: [embed("Invalid Amount", "Amount must be **0** or greater.")], ephemeral: true });
+    }
     let matchTile = -1, target = 0, current = 0;
     (Object.entries(s.tiles)).some(([idxStr, cfg]) => {
         const idx = Number(idxStr);
@@ -44,7 +47,10 @@ export async function execute(i) {
         return i.reply({ embeds: [embed("Not Configured", "That boss/drop isn't configured yet.")], ephemeral: true });
     if (current >= target)
         return i.reply({ embeds: [embed("Already Complete", "This drop is already completed for your team.")], ephemeral: true });
-    const delta = (amount > 1 && AMOUNTABLE_DROPS.has(normalize(drop))) ? Math.min(amount, 1_000_000) : 1;
+    const isAmountable = AMOUNTABLE_DROPS.has(normalize(drop));
+    const delta = isAmountable
+        ? Math.max(0, Math.min(amountInput ?? 1, 1_000_000))
+        : 1;
     const proposed = Math.min(current + delta, target);
     const outCh = s.outputChannelId ? i.guild.channels.cache.get(s.outputChannelId) : undefined;
     if (!outCh)

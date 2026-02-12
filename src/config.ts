@@ -5,7 +5,9 @@ export const ICONS_DIR = `${ASSETS_DIR}/icons`;
 
 export const AMOUNTABLE_DROPS = new Set([
   "vorkath's spike",
-  "ancient scale (cumulative)"
+  "ancient scale (cumulative)",
+  "hermodic plate",
+  "phylactery"
 ]);
 //test
 // Chest-verify bosses (ED1/2/3 collapsed to "ED")
