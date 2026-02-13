@@ -31,9 +31,13 @@ export function canonBossName(raw: string, opts: { forChest?: boolean } = {}): s
   const lc = norm(cleaned);
 
   if (opts.forChest) {
+    if (lc === "ed" || lc === "e's" || lc === "es") return "ED";
     if (lc.startsWith("ed1") || lc.startsWith("ed 1")) return "ED";
     if (lc.startsWith("ed2") || lc.startsWith("ed 2")) return "ED";
     if (lc.startsWith("ed3") || lc.startsWith("ed 3")) return "ED";
+    if (lc.startsWith("elite dungeon 1")) return "ED";
+    if (lc.startsWith("elite dungeon 2")) return "ED";
+    if (lc.startsWith("elite dungeon 3")) return "ED";
   }
 
   const via = ALIASES[lc];
@@ -268,6 +272,7 @@ const REQUIRED_CHEST_BOSSES = [
   "Amascut the Devourer",
   "Arch-Glacor",
   "ED",
+  "Telos, the Warden",
   "TzKal-Zuk",
   "Zemouregal and Vorkath",
   "Gate of Elidinis",
@@ -325,9 +330,12 @@ async function pendingChestSet(guildId: string, userId: string): Promise<Set<str
 
 /** Exportable helper so commands like /check_verify can reuse identical logic. */
 export async function computeChestRemainingForUser(guildId: string, userId: string): Promise<string[]> {
+  const s = await load(guildId);
   const pool = await chestBossPoolForGuild(guildId); // Map<normalized, display>
   if (pool.size === 0) return [];
 
+  const configured = (s.options as any)?.chestBosses as string[] | undefined;
+  const useConfiguredPoolAsRequired = Array.isArray(configured) && configured.length > 0;
   const required = requiredChestNormalizedSet();
 
   const verified = await verifiedChestSet(guildId, userId);
@@ -335,7 +343,7 @@ export async function computeChestRemainingForUser(guildId: string, userId: stri
 
   const left: string[] = [];
   for (const [n, label] of pool) {
-    if (!required.has(n)) continue;
+    if (!useConfiguredPoolAsRequired && !required.has(n)) continue;
     if (!verified.has(n) && !pending.has(n)) left.push(label);
   }
   return left.sort((a, b) => a.localeCompare(b));
