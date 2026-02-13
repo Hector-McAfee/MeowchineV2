@@ -122,7 +122,7 @@ export async function renderBoardImage(state, team) {
     const ctx = canvas.getContext("2d");
     ctx.fillRect(0, 0, width, height);
     ctx.textBaseline = "top";
-    ctx.font = FONT_BOLD + " 22px";
+    ctx.font = `22px ${FONT_BOLD}`;
     for (let r = 0; r < side; r++) {
         for (let c = 0; c < side; c++) {
             const idx = r * side + c + 1;
@@ -135,10 +135,10 @@ export async function renderBoardImage(state, team) {
             const cfg = state.tiles[idx];
             if (!cfg?.boss) {
                 ctx.fillStyle = "#9ca3af";
-                ctx.font = FONT_BOLD + " 24px";
+                ctx.font = `24px ${FONT_BOLD}`;
                 ctx.textAlign = "center";
                 ctx.fillText(`Tile ${idx}`, x + TILE / 2, y + 20);
-                ctx.font = "16px " + FONT_REGULAR;
+                ctx.font = `16px ${FONT_REGULAR}`;
                 ctx.fillText(`(empty)`, x + TILE / 2, y + 50);
                 ctx.textAlign = "left";
                 continue;
@@ -164,7 +164,7 @@ export async function renderBoardImage(state, team) {
                 ctx.fillStyle = "#3b3e45";
                 ctx.fillRect(x, y, TILE, TILE);
                 ctx.fillStyle = "#cbd5e1";
-                ctx.font = FONT_BOLD + " 20px";
+                ctx.font = `20px ${FONT_BOLD}`;
                 ctx.textAlign = "center";
                 ctx.fillText("No Icon", x + TILE / 2, y + TILE / 2 - 10);
                 ctx.textAlign = "left";
@@ -172,7 +172,7 @@ export async function renderBoardImage(state, team) {
             ctx.fillStyle = "rgba(0,0,0,0.25)";
             ctx.fillRect(x, y, TILE, 36);
             ctx.fillStyle = "#ffffff";
-            ctx.font = FONT_BOLD + " 20px";
+            ctx.font = `20px ${FONT_BOLD}`;
             ctx.textAlign = "center";
             // Use alias if available
             let bossLabel = cfg.boss;
@@ -192,7 +192,7 @@ export async function renderBoardImage(state, team) {
             ctx.strokeRect(x, y, TILE, TILE);
             ctx.restore();
             ctx.fillStyle = "#e5e7eb";
-            ctx.font = FONT_REGULAR + " 14px";
+            ctx.font = `14px ${FONT_REGULAR}`;
             ctx.textAlign = "center";
             lines.slice(0, 3).forEach((t, i) => {
                 const displayText = i === 0 && cfg.mode === "OR" ? t + " OR" : t;
