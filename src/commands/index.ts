@@ -11,6 +11,7 @@ import * as check_verify from "./player/check_verify.js";
 import * as start_bingo from "./setup/start_bingo.js";
 import * as open_verification from "./setup/open_verification.js";
 import * as end_bingo from "./setup/end_bingo.js";
+import * as manual_chest_verify from "./setup/manual_chest_verify.js";
 
 export const minimal: RESTPostAPIApplicationCommandsJSONBody[] = [
   bingo_create.data.toJSON()
@@ -34,6 +35,7 @@ export const full: RESTPostAPIApplicationCommandsJSONBody[] = [
   check_stats.data.toJSON(),
   start_bingo.data.toJSON(),
   open_verification.data.toJSON(),
+  manual_chest_verify.data.toJSON(),
   end_bingo.data.toJSON()
 ];
 
@@ -55,5 +57,6 @@ export const handlers = {
   check_stats: check_stats.execute,
   start_bingo: start_bingo.execute,
   open_verification: open_verification.execute,
+  manual_chest_verify: manual_chest_verify.execute,
   end_bingo: end_bingo.execute
 } as const;

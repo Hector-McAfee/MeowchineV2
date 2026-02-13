@@ -70,6 +70,7 @@ Important: if many pending submissions for the same (team, tile, drop) are verif
 - Similar flow to drops but uses chest-specific verification commands (e.g., `/submit_chest` or `/chest_verify`).
 - The bot tracks per-user verified chest bosses and prevents duplicate required chest verifications.
 - Admins can allow chest verifications before a bingo starts by running `/open_verification` when `chestVerify` is enabled, letting players submit chest verification early.
+- If a chest verification gets stuck in pending, admins can run `/manual_chest_verify player:@USER boss:NAME` to force-verify that chest for the player and clear matching pending entries.
 
 ---
 
