@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 import { load } from "../../state/store.js";
 import { embed } from "../../util.js";
+import { canonBossName, computeChestRemainingForUser } from "../../autocomplete/data.js";
 export const data = new SlashCommandBuilder()
     .setName("check_verify")
     .setDescription("See which chests you still need to verify");
@@ -13,18 +14,14 @@ export async function execute(i) {
     const team = s.channelToTeam[i.channelId];
     if (!team)
         return i.reply({ embeds: [embed("Wrong Channel", "Run this in your team input channel.")], ephemeral: true });
-    const required = new Set();
-    for (const t of Object.values(s.tiles)) {
-        if (!t?.boss)
-            continue;
-        const b = t.boss.toLowerCase();
-        if (["zemouregal and vorkath", "amascut the devourer", "arch-glacor", "tzkal-zuk", "ed", "zamorak", "sanctum of rebirth", "gate of elidinis"].includes(b)) {
-            required.add(t.boss);
-        }
-    }
-    const done = new Set(s.chestVerifiedUsers[i.user.id] ?? []);
-    const missing = [...required].filter(x => !done.has(x));
-    const pend = Object.values(s.pending).filter(p => p.kind === "chest" && p.team === team && p.userId === i.user.id).map(p => p.boss);
+    const missing = await computeChestRemainingForUser(i.guildId, i.user.id);
+    const pend = Object.values(s.pending)
+        .filter((p) => p.kind === "chest" && p.team === team && p.userId === i.user.id)
+        .map((p) => {
+        const boss = String(p.boss ?? "").trim();
+        return canonBossName(boss, { forChest: true }) || boss;
+    })
+        .filter((x) => !!x);
     const lines = [];
     if (missing.length)
         lines.push("**Still need:**", ...missing.map(m => `• ${m}`));

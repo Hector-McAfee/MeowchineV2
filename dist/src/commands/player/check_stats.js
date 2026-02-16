@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, userMention } from "discord.js";
+import { PermissionFlagsBits, SlashCommandBuilder, userMention } from "discord.js";
 import { load } from "../../state/store.js";
 import { embed } from "../../util.js";
 export const data = new SlashCommandBuilder()
@@ -6,8 +6,12 @@ export const data = new SlashCommandBuilder()
     .setDescription("List all drops a player has submitted")
     .addUserOption(o => o.setName("player").setDescription("Player to inspect").setRequired(true));
 export async function execute(i) {
+    const isAdmin = i.memberPermissions?.has(PermissionFlagsBits.Administrator) ?? false;
     const s = await load(i.guildId);
-    if (!s.active || !s.options.trackPlayerStats) {
+    if (!s.active) {
+        return i.reply({ embeds: [embed("No Active Bingo", "There is no active bingo right now.")], ephemeral: true });
+    }
+    if (!s.options.trackPlayerStats && !isAdmin) {
         return i.reply({ embeds: [embed("Stats Disabled", "Player stats are not enabled for this bingo.")], ephemeral: true });
     }
     const user = i.options.getUser("player", true);

@@ -81,7 +81,7 @@ export async function handleAutocomplete(i) {
         // --- Chest verification submission (player) ---
         // Ensure your command's option for the chest target is named "boss".
         // If your command name differs, add it here too.
-        if (["submit_chest", "verify_chest", "chest_verify"].includes(name)) {
+        if (["submit_chest", "verify_chest", "chest_verify", "manual_chest_verify"].includes(name)) {
             if (focused.name === "boss") {
                 return safeRespond(i, await suggestChestTargets(i));
             }
