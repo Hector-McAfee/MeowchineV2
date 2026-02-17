@@ -25,6 +25,18 @@ function countPartial(s: EventState, team: string): number {
   return count;
 }
 
+export function buildDailyRankingsLines(s: EventState): string[] {
+  const teams = Object.keys(s.teamToChannel);
+  const rows = teams.map(t => {
+    let full = 0;
+    for (const iStr of Object.keys(s.tiles)) if (tileComplete(s, t, Number(iStr))) full++;
+    const partial = countPartial(s, t);
+    return { t, full, partial };
+  }).sort((a,b)=> b.full - a.full || b.partial - a.partial);
+
+  return rows.map((r, idx) => `${idx+1}. Team **${r.t}** — **${r.full}** tiles complete, **${r.partial}** partial`);
+}
+
 export function scheduleDailyRankings(client: Client) {
   cron.schedule("0 12 * * *", async () => {
     for (const guild of client.guilds.cache.values()) {
@@ -33,15 +45,7 @@ export function scheduleDailyRankings(client: Client) {
       const ann = guild.channels.cache.get(s.announcementsChannelId) as TextChannel | undefined;
       if (!ann) continue;
 
-      const teams = Object.keys(s.teamToChannel);
-      const rows = teams.map(t => {
-        let full = 0;
-        for (const iStr of Object.keys(s.tiles)) if (tileComplete(s, t, Number(iStr))) full++;
-        const partial = countPartial(s, t);
-        return { t, full, partial };
-      }).sort((a,b)=> b.full - a.full || b.partial - a.partial);
-
-      const lines = rows.map((r, idx) => `${idx+1}. Team **${r.t}** — **${r.full}** tiles complete, **${r.partial}** partial`);
+      const lines = buildDailyRankingsLines(s);
       await ann.send({ embeds: [embed("Daily Rankings", lines.join("\n"))] });
     }
   }, { timezone: "Etc/UTC" });
